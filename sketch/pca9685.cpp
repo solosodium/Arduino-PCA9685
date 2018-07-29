@@ -41,13 +41,15 @@ uint8_t PCA9685::readRegister(uint8_t reg) {
 }
 
 void PCA9685::setServo(uint8_t idx, double pw) {
-    if (idx >= MIN_LED_INDEX && idx <= MAX_LED_INDEX) {
-        uint16_t onSteps = (uint16_t)(((double)pwmDelay / pwmCycle) * PWM_STEPS);
-        uint16_t offSteps = onSteps + (uint16_t)(((double)pw / pwmCycle) * PWM_STEPS);
-        writeRegister(LED0_ON_L + 4 * idx, onSteps & 0xFF);
-        writeRegister(LED0_ON_H + 4 * idx, (onSteps >> 8) & 0xFF);
-        writeRegister(LED0_OFF_L + 4 * idx, offSteps & 0xFF);
-        writeRegister(LED0_OFF_H + 4 * idx, (offSteps >> 8) & 0xFF);
-    }
+  if (idx < MIN_LED_INDEX || idx > MAX_LED_INDEX) {
+    return;
+  }
+  // https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf
+  uint16_t onSteps = (uint16_t)(((double)pwmDelay / pwmCycle) * PWM_STEPS);
+  uint16_t offSteps = onSteps + (uint16_t)(((double)pw / pwmCycle) * PWM_STEPS);
+  writeRegister(LED0_ON_L + 4 * idx, onSteps & 0xFF);
+  writeRegister(LED0_ON_H + 4 * idx, (onSteps >> 8) & 0xFF);
+  writeRegister(LED0_OFF_L + 4 * idx, offSteps & 0xFF);
+  writeRegister(LED0_OFF_H + 4 * idx, (offSteps >> 8) & 0xFF);
 }
 
