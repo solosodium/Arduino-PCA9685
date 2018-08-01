@@ -91,4 +91,4 @@ d) direct set servo pulse width
 e) display help messages again
    > help;
 ```
-Use these commands to find the reference pulse widths.
+Use these commands in serial monitor to find the reference pulse widths for the servo profile.
