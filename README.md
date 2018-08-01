@@ -67,7 +67,7 @@ How to use this library:
 
 Some might wonder: for a given servo, how do we find out the reference pulse widths at 0, 90 and 180 degrees? For this purpose, I created an Arduino [sketch](sketch/sketch.ino), which essentially is an interactive utility for figuring out a unique servo profile for an individual servo.
 
-Before launch the tool, you need to make sure the followings are properly configured:
+Before launch the tool, you need to make sure the followings are properly configured in [sketch](sketch/sketch.ino):
 ```c
 #define SDA         18      // I2C data pin.
 #define SCL         19      // I2C clock pin.
