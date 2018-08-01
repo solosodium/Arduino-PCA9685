@@ -6,7 +6,7 @@
 #define SDA         18      // I2C data pin.
 #define SCL         19      // I2C clock pin.
 #define I2C_ADDR    0x40    // I2C address.
-#define SERVO_INDEX 7       // Servo index.
+#define SERVO_INDEX 0       // Servo index on PCA9685.
 #define BAUD_RATE   115200  // Serial baud rate.
 #define INPUT_SIZE  128     // Maximum input string length.
 
