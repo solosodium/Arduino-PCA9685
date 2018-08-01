@@ -41,7 +41,7 @@ How to use this library:
 
 ## Servo Profile Library
 
-This library establishes a servo turning angle to pulse width profile for a specific servo. Under the hood, it takes in 3 calibration pulse widths at 0, 90 and 180 servo turning angle, and uses a second order curve to fit the 3 calibration points. When a desired turning angle is provided, it finds the pulse width using the fitted curve.
+This library establishes a servo turning angle to pulse width profile for a specific servo. Under the hood, it takes in 3 reference pulse widths at 0, 90 and 180 servo turning angle, and uses a second order curve to fit the 3 calibration points. When a desired turning angle is provided, it finds the pulse width using the fitted curve.
 
 How to use this library:
 1. Put [servoprofile.h](sketch/servoprofile.h) and [servoprofile.cpp](sketch/servoprofile.cpp) in your sketch folder.
@@ -65,4 +65,30 @@ How to use this library:
 
 ## Utility
 
+Some might wonder: for a given servo, how do we find out the reference pulse widths at 0, 90 and 180 degrees? For this purpose, I created an Arduino [sketch](sketch/sketch.ino), which essentially is an interactive utility for figuring out a unique servo profile for an individual servo.
 
+Before launch the tool, you need to make sure the followings are properly configured:
+```c
+#define SDA         18      // I2C data pin.
+#define SCL         19      // I2C clock pin.
+#define I2C_ADDR    0x40    // I2C address.
+#define SERVO_INDEX 0       // Servo index on PCA9685.
+#define BAUD_RATE   115200  // Serial baud rate.
+#define INPUT_SIZE  128     // Maximum input string length.
+```
+
+Once the sketch is uploaded, open your serial monitor in Arduino IDE with the previously configured Serial baud rate, you should see a list of available commands:
+```
+>>> Available serial commands <<<
+a) show current servo profile
+   > profile;
+b) set servo profile reference pulse width
+   > set;<reference degree>;<pulse width in ms>
+c) test servo profile with turning angle
+   > test;<turning angle in degrees>
+d) direct set servo pulse width
+   > pulse;<pulse width in ms>
+e) display help messages again
+   > help;
+```
+Use these commands to find the reference pulse widths.
