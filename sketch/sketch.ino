@@ -42,15 +42,15 @@ void loop() {
     input[size] = '\0';
     char* command = strtok(input, ";");
     if (command != NULL) {
-      if (strcmp(command, "profile") == 0) {
+      if (strncmp(command, "profile", size) == 0) {
         profileHandler();
-      } else if (strcmp(command, "set") == 0) {
+      } else if (strncmp(command, "set", size) == 0) {
         setHandler();
-      } else if (strcmp(command, "test") == 0) {
+      } else if (strncmp(command, "test", size) == 0) {
         testHandler();
-      } else if (strcmp(command, "pulse") == 0) {
+      } else if (strncmp(command, "pulse", size) == 0) {
         pulseHandler();
-      } else if (strcmp(command, "help") == 0) {
+      } else if (strncmp(command, "help", size) == 0) {
         helpHandler();
       } else {
         Serial.println(">>> Invaid command <<<");
