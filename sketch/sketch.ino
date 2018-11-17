@@ -3,20 +3,18 @@
 
 /***** Configurations *****/
 
-#define SDA         18      // I2C data pin.
-#define SCL         19      // I2C clock pin.
 #define I2C_ADDR    0x40    // I2C address.
-#define SERVO_INDEX 0       // Servo index on PCA9685.
+#define SERVO_INDEX 3       // Servo index on PCA9685.
 #define BAUD_RATE   115200  // Serial baud rate.
 #define INPUT_SIZE  128     // Maximum input string length.
 
 /***** Global variables *****/
 
 // PCA9685 controller handle.
-PCA9685 pca9685(&Wire, I2C_ADDR);
+PCA9685 *pca9685;
 
 // Servo angle-pulse width profile.
-ServoProfile servo(0.6, 1.5, 2.4);
+ServoProfile servo(2.55, 1.5, 0.5);
 
 // Serial input buffer.
 char input[INPUT_SIZE];
@@ -25,9 +23,10 @@ char input[INPUT_SIZE];
 
 void setup() {
   // Initialize serial.
-  Serial.begin(BAUD_RATE);
+  Serial.begin(115200);
   // Initialize Wire.
-  Wire.begin(SDA, SCL);
+  Wire.begin();
+  pca9685 = new PCA9685(&Wire, I2C_ADDR);
   // Print welcome message.
   printWelcome();
   // Print help message.
@@ -111,7 +110,7 @@ void testHandler() {
   if (degree != NULL) {
     double val1 = String(degree).toFloat();
     double val2 = servo.computePulseWidth(val1);
-    pca9685.setServo(SERVO_INDEX, val2);
+    pca9685->setServo(SERVO_INDEX, val2);
     Serial.println("Test servo with degree: " + String(val1) + ", pulse width: " + String(val2) + " ms");  
   } else {
     Serial.println("Missing degree value");
@@ -125,7 +124,7 @@ void pulseHandler() {
   char *pulse = strtok(NULL, ";");
   if (pulse != NULL) {
     double val = String(pulse).toFloat();
-    pca9685.setServo(SERVO_INDEX, val);
+    pca9685->setServo(SERVO_INDEX, val);
     Serial.println("Set servo pulse width to: " + String(val));  
   } else {
     Serial.println("Missing pulse width value");

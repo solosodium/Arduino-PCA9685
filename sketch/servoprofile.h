@@ -1,8 +1,6 @@
 #ifndef SERVOPROFILE_H
 #define SERVOPROFILE_H
 
-#include <algorithm>
-
 /**
  * A utility class maps 0 to 180 degrees to predefined servo pulse width.
  * It takes 3 reference pulse width at 0, 90 and 180 degrees, and

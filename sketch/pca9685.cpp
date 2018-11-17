@@ -23,14 +23,14 @@ uint8_t PCA9685::getPrescaler() {
 }
 
 void PCA9685::writeRegister(uint8_t reg, uint8_t val) {
-    i2cBus->beginTransmission(address);
+    i2cBus->beginTransmission((int)address);
     i2cBus->write(reg);
     i2cBus->write(val);
     i2cBus->endTransmission();
 }
 
 uint8_t PCA9685::readRegister(uint8_t reg) {
-    i2cBus->beginTransmission(address);
+    i2cBus->beginTransmission((int)address);
     i2cBus->write(reg);
     i2cBus->endTransmission(false);
     i2cBus->requestFrom((uint8_t)address, (uint8_t)1);
